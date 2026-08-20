@@ -2,7 +2,7 @@
 
 Two small AI-powered tools built to explore structured LLM output and practical AI application engineering — built as an individual project by Ana.
 
-## Skill Gap Analyzer (main project)
+## Skill Gap Analyzer
 
 **Live demo:** https://skill-gap-analyzerr.streamlit.app
 
