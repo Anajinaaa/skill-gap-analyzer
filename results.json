@@ -1,0 +1,19 @@
+{
+  "action_items": [
+    {
+      "task": "Send the updated budget spreadsheet",
+      "owner": "Sarah",
+      "deadline": "Friday"
+    },
+    {
+      "task": "Follow up with the vendor about pricing",
+      "owner": "Mike",
+      "deadline": "Next week"
+    },
+    {
+      "task": "Review the design mockups",
+      "owner": "The team",
+      "deadline": "Before the next sprint planning"
+    }
+  ]
+}
