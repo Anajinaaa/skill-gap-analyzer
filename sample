@@ -1,0 +1,44 @@
+cat > main.py << 'EOF'
+from google import genai
+from google.genai import types
+import json, argparse
+
+client = genai.Client()
+
+def extract_action_items(notes: str):
+    response = client.models.generate_content(
+        model="gemini-2.5-flash",
+        contents=f"Extract action items from these meeting notes:\n\n{notes}",
+        config=types.GenerateContentConfig(
+            response_mime_type="application/json",
+            response_schema={
+                "type": "OBJECT",
+                "properties": {
+                    "action_items": {
+                        "type": "ARRAY",
+                        "items": {
+                            "type": "OBJECT",
+                            "properties": {
+                                "task": {"type": "STRING"},
+                                "owner": {"type": "STRING"},
+                                "deadline": {"type": "STRING"}
+                            },
+                            "required": ["task"]
+                        }
+                    }
+                },
+                "required": ["action_items"]
+            }
+        )
+    )
+    return json.loads(response.text)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("file", help="Path to text file with meeting notes")
+    args = parser.parse_args()
+    with open(args.file) as f:
+        notes = f.read()
+    result = extract_action_items(notes)
+    print(json.dumps(result, indent=2))
+EOF
