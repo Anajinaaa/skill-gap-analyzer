@@ -2,6 +2,7 @@ import streamlit as st
 from google import genai
 from google.genai import types
 import json
+import math
 import os
 from pypdf import PdfReader
 import docx
@@ -33,9 +34,17 @@ st.markdown("""
     .score-box {
         text-align: center; padding: 1.5rem; background-color: #F9FAFB;
         border-radius: 8px; margin-bottom: 1.5rem;
+        display: flex; flex-direction: column; align-items: center;
     }
-    .score-num { font-size: 2.2rem; font-weight: 700; color: #111827; }
-    .score-label { color: #6b7280; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    .ring-wrap { position: relative; width: 132px; height: 132px; }
+    .ring-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .ring-num { font-size: 2.15rem; font-weight: 700; color: #111827; line-height: 1; }
+    .ring-label { font-size: 0.7rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 5px; }
+    .score-badge { display: inline-flex; align-items: center; padding: 5px 13px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; margin-top: 16px; }
+    .score-badge.strong { background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; }
+    .score-badge.partial { background: #FFFBEB; color: #B45309; border: 1px solid #FDE68A; }
+    .score-badge.weak { background: #FEF2F2; color: #B91C1C; border: 1px solid #FECACA; }
+    .score-caption { color: #6b7280; font-size: 0.82rem; margin-top: 8px; }
     .section-divider { border: none; border-top: 1px solid #e5e7eb; margin: 2rem 0 1.5rem 0; }
     .section-label {
         color: #9ca3af; text-transform: uppercase; font-size: 0.75rem;
@@ -70,7 +79,7 @@ st.markdown("""
         h1 { font-size: 1.4rem !important; }
         .subtitle { font-size: 0.88rem; }
         .score-box { padding: 1rem; }
-        .score-num { font-size: 1.8rem; }
+        .ring-num { font-size: 1.75rem; }
         .bullet-card { padding: 0.75rem 0.9rem; }
     }
     @media (prefers-color-scheme: dark) {
@@ -84,8 +93,16 @@ st.markdown("""
         .stButton > button { background-color: #F3F4F6; color: #0B0E14; }
         .stButton > button:hover { background-color: #E5E7EB; color: #0B0E14; }
         .score-box { background-color: #161B24; }
-        .score-num { color: #F3F4F6; }
-        .score-label { color: #9CA3AF; }
+        .ring-num { color: #F3F4F6; }
+        .ring-label { color: #9CA3AF; }
+        .ring-wrap svg circle:nth-child(1) { stroke: #262D3A; }
+        .ring-progress.strong { stroke: #34D399; }
+        .ring-progress.partial { stroke: #FBBF24; }
+        .ring-progress.weak { stroke: #F87171; }
+        .score-badge.strong { background: rgba(52,211,153,0.14); color: #34D399; border: 1px solid rgba(52,211,153,0.35); }
+        .score-badge.partial { background: rgba(245,158,11,0.14); color: #FBBF24; border: 1px solid rgba(245,158,11,0.35); }
+        .score-badge.weak { background: rgba(248,113,113,0.14); color: #F87171; border: 1px solid rgba(248,113,113,0.35); }
+        .score-caption { color: #9CA3AF; }
         .section-divider { border-top: 1px solid #262D3A; }
         .bullet-card { background-color: #161B24; border: 1px solid #262D3A; color: #F3F4F6; }
         .have { background-color: rgba(52,211,153,0.14); color: #34D399; border: 1px solid rgba(52,211,153,0.35); }
@@ -163,7 +180,7 @@ job_posting = st.text_area("Job posting", height=200, placeholder="Paste the job
 
 analyze = st.button("Analyze gap")
 
-for key in ["result", "resume_text", "cover_letter"]:
+for key in ["result", "resume_text", "cover_letter", "updated_resume"]:
     if key not in st.session_state:
         st.session_state[key] = None
 
@@ -246,6 +263,7 @@ RESUME:
                 try:
                     st.session_state.result = json.loads(response.text)
                     st.session_state.cover_letter = None
+                    st.session_state.updated_resume = None
                 except json.JSONDecodeError:
                     st.error("That comparison didn't come through cleanly — this is usually temporary. Press Analyze gap again and it should go through.")
 
@@ -253,10 +271,35 @@ if st.session_state.result:
     result = st.session_state.result
     st.markdown('<hr class="section-divider">', unsafe_allow_html=True)
 
+    score = result.get('match_score', 0)
+    circumference = 2 * math.pi * 54
+    dash_offset = circumference * (1 - score / 100)
+
+    if score >= 75:
+        tier_label, tier_class, tier_color = "Strong match", "strong", "#047857"
+    elif score >= 50:
+        tier_label, tier_class, tier_color = "Partial match", "partial", "#B45309"
+    else:
+        tier_label, tier_class, tier_color = "Needs work", "weak", "#B91C1C"
+
+    matched_count = len(result.get('matched_skills', []))
+    total_count = matched_count + len(result.get('missing_skills', []))
+    caption = f"{matched_count} of {total_count} required skills found"
+
     st.markdown(f"""
     <div class="score-box">
-        <div class="score-num">{result.get('match_score', 0)}%</div>
-        <div class="score-label">Match score</div>
+        <div class="ring-wrap">
+          <svg width="132" height="132" viewBox="0 0 132 132">
+            <circle cx="66" cy="66" r="54" fill="none" stroke="#e5e7eb" stroke-width="11"/>
+            <circle cx="66" cy="66" r="54" fill="none" stroke="{tier_color}" stroke-width="11" stroke-linecap="round" stroke-dasharray="{circumference:.1f}" stroke-dashoffset="{dash_offset:.1f}" transform="rotate(-90 66 66)" class="ring-progress {tier_class}"/>
+          </svg>
+          <div class="ring-center">
+            <div class="ring-num">{score}%</div>
+            <div class="ring-label">Match</div>
+          </div>
+        </div>
+        <div class="score-badge {tier_class}">{tier_label}</div>
+        <div class="score-caption">{caption}</div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -297,6 +340,43 @@ if st.session_state.result:
         file_name="skill_gap_analysis.json",
         mime="application/json"
     )
+
+    if bullets:
+        st.markdown('<hr class="section-divider">', unsafe_allow_html=True)
+        st.markdown('<div class="section-label">Updated resume</div>', unsafe_allow_html=True)
+
+        if st.button("Generate updated resume"):
+            with st.spinner("Rewriting..."):
+                client = genai.Client()
+                suggestions_text = "\n".join([f"- {b.get('skill', '')}: {b.get('suggestion', '')}" for b in bullets])
+
+                resume_prompt = f"""Rewrite this resume to incorporate the following suggested changes, where the candidate's existing experience plausibly supports them. Do not fabricate experience, employers, dates, or credentials not present in the original resume. Keep the original resume's structure, section order, and formatting style. No placeholder brackets.
+
+SUGGESTED CHANGES:
+{suggestions_text}
+
+ORIGINAL RESUME:
+{st.session_state.resume_text}"""
+
+                resume_response = client.models.generate_content(
+                    model="gemini-3.6-flash",
+                    contents=resume_prompt
+                )
+                st.session_state.updated_resume = resume_response.text
+
+        if st.session_state.updated_resume:
+            edited_resume = st.text_area(
+                "Edit your updated resume",
+                value=st.session_state.updated_resume,
+                height=350,
+                label_visibility="collapsed"
+            )
+            st.download_button(
+                "Download updated resume",
+                data=edited_resume,
+                file_name="updated_resume.txt",
+                mime="text/plain"
+            )
 
     st.markdown('<hr class="section-divider">', unsafe_allow_html=True)
     st.markdown('<div class="section-label">Cover letter</div>', unsafe_allow_html=True)
