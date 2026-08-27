@@ -25,7 +25,7 @@ st.markdown("""
     .subtitle { color: #6b7280; font-size: 0.95rem; margin-bottom: 0.5rem; }
     .project-note { color: #9ca3af; font-size: 0.82rem; margin-bottom: 1.5rem; }
     .skill-pill {
-        display: inline-block; border-radius: 6px; padding: 0.3rem 0.75rem;
+        display: inline-flex; align-items: center; gap: 4px; border-radius: 6px; padding: 0.3rem 0.75rem;
         margin: 0.2rem 0.3rem 0.2rem 0; font-size: 0.88rem;
     }
     .have { background-color: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; }
@@ -98,7 +98,8 @@ def extract_text_from_file(uploaded_file):
         return uploaded_file.read().decode("utf-8")
 
 st.markdown('<div class="section-label">Resume</div>', unsafe_allow_html=True)
-resume_file = st.file_uploader("Upload your resume", type=["pdf", "docx", "txt"], label_visibility="collapsed")
+resume_file = st.file_uploader("Upload your resume", type=["pdf", "docx", "txt"], label_visibility="collapsed", help="Upload a PDF, DOCX, or TXT file, up to 10MB.")
+st.caption("PDF, DOCX, or TXT · up to 10MB")
 
 st.write("")
 st.markdown('<div class="section-label">Job posting</div>', unsafe_allow_html=True)
@@ -212,14 +213,14 @@ if st.session_state.result:
 
     st.markdown('<div class="section-label">Skills you have</div>', unsafe_allow_html=True)
     if matched:
-        st.markdown("".join([f'<span class="skill-pill have">{s}</span>' for s in matched]), unsafe_allow_html=True)
+        st.markdown("".join([f'<span class="skill-pill have"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5L6.5 11.5L12.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>{s}</span>' for s in matched]), unsafe_allow_html=True)
     else:
         st.write("None found.")
 
     st.write("")
     st.markdown('<div class="section-label">Skills you\'re missing</div>', unsafe_allow_html=True)
     if missing:
-        st.markdown("".join([f'<span class="skill-pill missing">{s}</span>' for s in missing]), unsafe_allow_html=True)
+        st.markdown("".join([f'<span class="skill-pill missing"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>{s}</span>' for s in missing]), unsafe_allow_html=True)
     else:
         st.write("None — great match!")
 
