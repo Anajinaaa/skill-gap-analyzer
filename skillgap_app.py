@@ -45,6 +45,26 @@ st.markdown("""
         background-color: #F9FAFB; border: 1px solid #e5e7eb; border-radius: 8px;
         padding: 0.9rem 1.1rem; margin-bottom: 0.6rem; font-size: 0.9rem; color: #111827;
     }
+    .example-card {
+        position: relative; border: 1.5px dashed #d1d5db; border-radius: 10px;
+        background-color: #FAFAFB; padding: 1.5rem 1.5rem 1.25rem 1.5rem; margin-top: 0.5rem;
+    }
+    .example-tag {
+        position: absolute; top: -0.65rem; left: 1rem; background-color: #111827; color: white;
+        font-size: 0.72rem; font-weight: 500; padding: 0.15rem 0.7rem; border-radius: 999px;
+        letter-spacing: 0.02em;
+    }
+    .example-row { display: flex; align-items: center; gap: 1.25rem; }
+    .mini-ring-wrap { position: relative; width: 78px; height: 78px; flex-shrink: 0; }
+    .mini-ring-center {
+        position: absolute; inset: 0; display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+    }
+    .mini-ring-num { font-size: 1.05rem; font-weight: 700; color: #111827; line-height: 1.1; }
+    .mini-ring-label { color: #9ca3af; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    .example-copy { color: #374151; font-size: 0.88rem; line-height: 1.45; }
+    .example-pills { margin-top: 1rem; }
+    .example-caption { color: #9ca3af; font-size: 0.78rem; margin-top: 0.6rem; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -89,6 +109,33 @@ analyze = st.button("Analyze gap")
 for key in ["result", "resume_text", "cover_letter"]:
     if key not in st.session_state:
         st.session_state[key] = None
+
+if not st.session_state.result:
+    st.markdown('<div class="section-label">See what you\'ll get</div>', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="example-card">
+        <span class="example-tag">Example</span>
+        <div class="example-row">
+            <div class="mini-ring-wrap">
+                <svg width="78" height="78" viewBox="0 0 78 78">
+                    <circle cx="39" cy="39" r="35.5" fill="none" stroke="#e5e7eb" stroke-width="7" />
+                    <circle cx="39" cy="39" r="35.5" fill="none" stroke="#111827" stroke-width="7"
+                        stroke-linecap="round" stroke-dasharray="223.05" stroke-dashoffset="40.15"
+                        transform="rotate(-90 39 39)" />
+                </svg>
+                <div class="mini-ring-center">
+                    <div class="mini-ring-num">82%</div>
+                    <div class="mini-ring-label">Match</div>
+                </div>
+            </div>
+            <div class="example-copy">A match score, which skills you already show, and which ones are worth adding — plus a cover letter you can edit and download.</div>
+        </div>
+        <div class="example-pills">
+            <span class="skill-pill have">Figma</span><span class="skill-pill have">User research</span><span class="skill-pill missing">Design systems</span>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    st.markdown('<div class="example-caption">Sample data — your results will use your own resume and job posting.</div>', unsafe_allow_html=True)
 
 if analyze:
     if not resume_file or not job_posting.strip():
