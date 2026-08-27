@@ -73,6 +73,29 @@ st.markdown("""
         .score-num { font-size: 1.8rem; }
         .bullet-card { padding: 0.75rem 0.9rem; }
     }
+    @media (prefers-color-scheme: dark) {
+        .stApp, .main { background-color: #0B0E14; }
+        header[data-testid="stHeader"] { background-color: #0B0E14; }
+        h1 { color: #F3F4F6; }
+        .subtitle { color: #9CA3AF; }
+        .project-note { color: #6B7280; }
+        .section-label { color: #6B7280; }
+        .stTextArea textarea { background-color: #161B24; color: #F3F4F6; border-color: #323A4A; }
+        .stButton > button { background-color: #F3F4F6; color: #0B0E14; }
+        .stButton > button:hover { background-color: #E5E7EB; color: #0B0E14; }
+        .score-box { background-color: #161B24; }
+        .score-num { color: #F3F4F6; }
+        .score-label { color: #9CA3AF; }
+        .section-divider { border-top: 1px solid #262D3A; }
+        .bullet-card { background-color: #161B24; border: 1px solid #262D3A; color: #F3F4F6; }
+        .have { background-color: rgba(52,211,153,0.14); color: #34D399; border: 1px solid rgba(52,211,153,0.35); }
+        .missing { background-color: rgba(248,113,113,0.14); color: #F87171; border: 1px solid rgba(248,113,113,0.35); }
+        .example-card { background-color: #161B24; border-color: #323A4A; }
+        .example-copy { color: #D1D5DB; }
+        .mini-ring-num { color: #F3F4F6; }
+        .mini-ring-wrap svg circle:nth-child(1) { stroke: #262D3A; }
+        .mini-ring-wrap svg circle:nth-child(2) { stroke: #F3F4F6; }
+    }
 </style>
 """, unsafe_allow_html=True)
 
