@@ -69,8 +69,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.title("Skill Gap Analyzer")
-st.markdown('<div class="subtitle">Upload your resume and paste a job posting — see your skill match and generate a tailored cover letter.</div>', unsafe_allow_html=True)
-st.markdown('<div class="project-note">An individual project by Ana · Built to help prep for real job applications.</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitle">Built for STEM students — see how your resume stacks up against a job posting, close the gaps that matter, and draft a cover letter that doesn\'t oversell it.</div>', unsafe_allow_html=True)
+st.markdown('<div class="project-note">An individual project by Ana · Built for STEM students prepping for internship and new-grad applications.</div>', unsafe_allow_html=True)
 
 with st.expander("About this project"):
     st.markdown("""
@@ -85,6 +85,31 @@ The resume file is parsed to plain text, then sent to Gemini alongside the job p
 **What I learned**
 
 Chaining two LLM calls — one for structured extraction, one for generation grounded in that extracted data — taught me how real AI features are composed from multiple steps rather than a single prompt, and how to handle file parsing (PDF/DOCX) as a practical part of an AI pipeline, not just clean pasted text.
+    """)
+
+with st.expander("Tips for STEM students"):
+    st.markdown("""
+**What employers actually screen for**
+
+NACE's Job Outlook surveys ask employers what they look for on student resumes. The gap is rarely the skills themselves — it's whether students actually write them down with evidence:
+
+- Problem-solving ability — nearly 90% of employers screen for it
+- Teamwork — about 80%
+- Written and verbal communication — 70%+
+- Technical skills — 70%+
+- Initiative, work ethic, adaptability, and analytical/quantitative skills — all cited by a majority
+- More than half of employers said they look for 10+ distinct skills — breadth matters, but only if each one has proof behind it
+
+**Common mistakes students make**
+
+- Listing tools without evidence — say what you built and what problem it solved, not just "Python, React, SQL"
+- Treating every bullet as equally important — three well-explained projects beat eleven generic ones
+- Sending the same resume to every posting — tailor it to what the listing actually asks for
+- Skipping proofreading — a typo in your contact info can cost you the interview before it starts
+- Leaving off older or "basic" technical skills — list your full stack, most to least proficient, don't just show off the impressive parts
+- Disguising experience gaps instead of showing your actual thought process — employers can tell, and it reads worse than an honest gap
+
+*Sources: NACE Job Outlook 2026, College Recruiter (2026), Emory University Career & Professional Development STEM Resume Guide.*
     """)
 
 def extract_text_from_file(uploaded_file):
