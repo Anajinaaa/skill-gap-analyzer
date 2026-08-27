@@ -165,14 +165,14 @@ if not st.session_state.result:
 
 if analyze:
     if not resume_file or not job_posting.strip():
-        st.error("Please upload a resume and paste a job posting.")
+        st.error("Add your resume and the job posting — both are needed to run the comparison. Upload a file above, then paste the posting text below it.")
     else:
         with st.spinner("Reading resume..."):
             resume_text = extract_text_from_file(resume_file)
             st.session_state.resume_text = resume_text
 
-        if not resume_text.strip():
-            st.error("Couldn't extract text from that file. Try a different format.")
+        if len(resume_text.strip()) < 40:
+            st.error("We couldn't read enough text from that file — it might be a scanned or image-based PDF. Try a DOCX or TXT file instead, or paste your resume text directly.")
         else:
             with st.spinner("Comparing..."):
                 client = genai.Client()
@@ -216,7 +216,7 @@ RESUME:
                     st.session_state.result = json.loads(response.text)
                     st.session_state.cover_letter = None
                 except json.JSONDecodeError:
-                    st.error("Something went wrong parsing the response. Try again.")
+                    st.error("That comparison didn't come through cleanly — this is usually temporary. Press Analyze gap again and it should go through.")
 
 if st.session_state.result:
     result = st.session_state.result
