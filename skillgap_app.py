@@ -216,11 +216,14 @@ if analyze:
         st.error("Add your resume and the job posting — both are needed to run the comparison. Upload a file above, then paste the posting text below it.")
     else:
         with st.spinner("Reading resume..."):
-            resume_text = extract_text_from_file(resume_file)
+            try:
+                resume_text = extract_text_from_file(resume_file)
+            except Exception:
+                resume_text = ""
             st.session_state.resume_text = resume_text
 
         if len(resume_text.strip()) < 40:
-            st.error("We couldn't read enough text from that file — it might be a scanned or image-based PDF. Try a DOCX or TXT file instead, or paste your resume text directly.")
+            st.error("We couldn't read enough text from that file — it might be corrupted, password-protected, or a scanned/image-based PDF. Try a DOCX or TXT file instead, or paste your resume text directly.")
         else:
             with st.spinner("Comparing..."):
                 client = genai.Client()
