@@ -17,7 +17,7 @@ st.markdown("""
     .block-container { padding-top: 3rem; max-width: 700px; }
     .stButton > button {
         width: 100%; background-color: #111827; color: white; font-weight: 500;
-        padding: 0.6rem; border-radius: 6px; border: none;
+        padding: 0.6rem; border-radius: 6px; border: none; min-height: 44px;
     }
     .stButton > button:hover { background-color: #374151; color: white; }
     .stTextArea textarea { border-radius: 6px; border: 1px solid #d1d5db; font-size: 0.95rem; }
@@ -65,6 +65,14 @@ st.markdown("""
     .example-copy { color: #374151; font-size: 0.88rem; line-height: 1.45; }
     .example-pills { margin-top: 1rem; }
     .example-caption { color: #9ca3af; font-size: 0.78rem; margin-top: 0.6rem; }
+    @media (max-width: 480px) {
+        .block-container { padding-top: 1.5rem !important; padding-left: 1rem !important; padding-right: 1rem !important; }
+        h1 { font-size: 1.4rem !important; }
+        .subtitle { font-size: 0.88rem; }
+        .score-box { padding: 1rem; }
+        .score-num { font-size: 1.8rem; }
+        .bullet-card { padding: 0.75rem 0.9rem; }
+    }
 </style>
 """, unsafe_allow_html=True)
 
