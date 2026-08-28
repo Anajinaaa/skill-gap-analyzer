@@ -321,6 +321,12 @@ if st.session_state.show_landing:
 
     st.stop()
 
+back_col, _ = st.columns([1, 5])
+with back_col:
+    if st.button("← Back", key="back_to_landing"):
+        st.session_state.show_landing = True
+        st.rerun()
+
 st.title("Skill Gap Analyzer")
 st.markdown('<div class="subtitle">Built for STEM students — see how your resume stacks up against a job posting, close the gaps that matter, and draft a cover letter that doesn\'t oversell it.</div>', unsafe_allow_html=True)
 st.markdown('<div class="project-note">An individual project by Ana · Built for STEM students prepping for internship and new-grad applications.</div>', unsafe_allow_html=True)
