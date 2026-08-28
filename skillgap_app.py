@@ -74,6 +74,54 @@ st.markdown("""
     .example-copy { color: #374151; font-size: 0.88rem; line-height: 1.45; }
     .example-pills { margin-top: 1rem; }
     .example-caption { color: #9ca3af; font-size: 0.78rem; margin-top: 0.6rem; }
+    .lp { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    .lp-eyebrow {
+        display: block; text-align: center; color: #9ca3af; text-transform: uppercase;
+        font-size: 0.76rem; letter-spacing: 0.08em; font-weight: 600; font-family: 'IBM Plex Mono', monospace;
+        margin-bottom: 8px;
+    }
+    h1.lp-h1 {
+        font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 2.3rem; line-height: 1.15;
+        letter-spacing: -0.02em; color: #111827; margin: 0; text-align: center;
+    }
+    p.lp-lead { font-size: 1.05rem; color: #6b7280; line-height: 1.6; text-align: center; margin: 16px 0 0 0; }
+    h2.lp-h2 { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 1.55rem; margin: 0 0 14px 0; color: #111827; text-align: center; }
+    a.lp-ghost-link { display: block; text-align: center; margin-top: 18px; font-size: 0.92rem; color: #6b7280; font-weight: 600; }
+
+    .lp-result-card {
+        position: relative; display: flex; align-items: center; gap: 20px;
+        border: 1.5px dashed #d1d5db; border-radius: 14px; background: #FAFAFB; padding: 24px 26px; margin-top: 32px;
+    }
+    .lp-result-tag {
+        position: absolute; top: -13px; left: 20px; background: #111827; color: white;
+        font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; font-weight: 600; padding: 4px 12px; border-radius: 999px;
+    }
+    .lp-quote-card {
+        margin-top: 26px; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px;
+        padding: 26px 28px; text-align: left;
+    }
+    .lp-quote-card p { font-size: 1.02rem; line-height: 1.6; font-style: italic; margin: 0; color: #111827; }
+    .lp-quote-attr { margin-top: 14px; font-size: 0.86rem; color: #6b7280; font-weight: 600; font-style: normal; }
+
+    .lp-reaction-card { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 18px 20px; margin-bottom: 10px; }
+    .lp-reaction-name { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 0.96rem; color: #111827; }
+    .lp-reaction-meta { font-family: -apple-system, sans-serif; font-weight: 500; font-size: 0.83rem; color: #9ca3af; }
+    .lp-reaction-card p { margin: 8px 0 0 0; font-size: 0.89rem; color: #6b7280; line-height: 1.55; }
+
+    .lp-step { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid #e5e7eb; }
+    .lp-step:last-child { border-bottom: none; }
+    .lp-step-num {
+        font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 0.8rem; color: #6b7280;
+        border: 1px solid #d1d5db; border-radius: 999px; width: 26px; height: 26px; flex-shrink: 0;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .lp-step h3 { font-family: 'Archivo', sans-serif; font-size: 0.98rem; font-weight: 700; margin: 0 0 4px 0; color: #111827; }
+    .lp-step p { font-size: 0.88rem; color: #6b7280; margin: 0; line-height: 1.5; }
+
+    .lp-principle { background: #111827; border-radius: 14px; padding: 36px 30px; text-align: center; }
+    .lp-principle .lp-eyebrow { color: #9ca3af; }
+    .lp-principle h2 { color: #ffffff; }
+    .lp-principle p { color: #d1d5db; font-size: 0.95rem; line-height: 1.6; margin: 0; }
     @media (max-width: 480px) {
         .block-container { padding-top: 1.5rem !important; padding-left: 1rem !important; padding-right: 1rem !important; }
         h1 { font-size: 1.4rem !important; }
@@ -112,9 +160,166 @@ st.markdown("""
         .mini-ring-num { color: #F3F4F6; }
         .mini-ring-wrap svg circle:nth-child(1) { stroke: #262D3A; }
         .mini-ring-wrap svg circle:nth-child(2) { stroke: #F3F4F6; }
+        h1.lp-h1 { color: #F3F4F6; }
+        p.lp-lead { color: #9CA3AF; }
+        a.lp-ghost-link { color: #9CA3AF; }
+        h2.lp-h2 { color: #F3F4F6; }
+        .lp-result-card { background: #161B24; border-color: #323A4A; }
+        .lp-quote-card { background: #0B0E14; border-color: #262D3A; }
+        .lp-quote-card p { color: #F3F4F6; }
+        .lp-quote-attr { color: #9CA3AF; }
+        .lp-reaction-card { background: #0B0E14; border-color: #262D3A; }
+        .lp-reaction-name { color: #F3F4F6; }
+        .lp-reaction-card p { color: #9CA3AF; }
+        .lp-step { border-color: #262D3A; }
+        .lp-step h3 { color: #F3F4F6; }
+        .lp-principle { background: #F3F4F6; }
+        .lp-principle .lp-eyebrow { color: #6B7280; }
+        .lp-principle h2 { color: #0B0E14; }
+        .lp-principle p { color: #4B5563; }
     }
 </style>
 """, unsafe_allow_html=True)
+
+if "show_landing" not in st.session_state:
+    st.session_state.show_landing = True
+
+if st.session_state.show_landing:
+    st.markdown(
+        '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=IBM+Plex+Mono:wght@500;600&display=swap">',
+        unsafe_allow_html=True,
+    )
+
+    st.markdown("""
+    <div class="lp">
+        <div class="lp-eyebrow">Built for college students &amp; new grads</div>
+        <h1 class="lp-h1">Stop rewriting your resume for every application.</h1>
+        <p class="lp-lead">Upload your resume and a job posting. Get an honest match score, see exactly what's missing, and generate a cover letter that doesn't oversell it — in under a minute.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    _, cta_col, _ = st.columns([1, 2, 1])
+    with cta_col:
+        if st.button("Try Skill Gap Analyzer", key="cta_hero", use_container_width=True):
+            st.session_state.show_landing = False
+            st.rerun()
+
+    st.markdown("""
+    <div class="lp">
+      <a class="lp-ghost-link" href="#how-it-works">See how it works ↓</a>
+      <div class="lp-result-card">
+        <span class="lp-result-tag">Example result</span>
+        <div class="ring-wrap" style="width:88px; height:88px;">
+          <svg width="88" height="88" viewBox="0 0 88 88">
+            <circle cx="44" cy="44" r="37" fill="none" stroke="#e5e7eb" stroke-width="8"/>
+            <circle cx="44" cy="44" r="37" fill="none" stroke="#047857" stroke-width="8" stroke-linecap="round"
+              stroke-dasharray="232.5" stroke-dashoffset="41.9" transform="rotate(-90 44 44)"/>
+          </svg>
+          <div class="ring-center">
+            <div class="ring-num" style="font-size:1.3rem;">82%</div>
+            <div class="ring-label">Match</div>
+          </div>
+        </div>
+        <div>
+          <span class="score-badge strong" style="margin-top:0;">Strong match</span>
+          <div style="margin-top:8px;">
+            <span class="skill-pill have">Python</span><span class="skill-pill have">SQL</span><span class="skill-pill missing">Docker</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<hr class="section-divider" id="why-we-built-this">', unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="lp">
+        <div class="lp-eyebrow">Why we built this</div>
+        <h2 class="lp-h2">We talked to college students who were already job hunting.</h2>
+        <p class="lp-lead" style="margin-top:0;">
+            We asked freshmen, sophomores, juniors, and seniors — students actually applying to internships and entry-level roles — about their job search experience. The same frustrations came up again and again: getting ghosted after applying, and having to rewrite a resume and write a brand-new cover letter for every single posting, even with real experience already on the page.
+        </p>
+        <div class="lp-quote-card">
+            <p>"I had a hard time finding a job even with experience. Companies would ghost me, and I had to update my resume and write a new cover letter every time."</p>
+            <div class="lp-quote-attr">— Altynai, senior, Chemistry</div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.write("")
+    st.markdown('<div class="lp-eyebrow">Same gap, three different reactions</div>', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="lp-reaction-card">
+        <span class="lp-reaction-name">Altynai</span> <span class="lp-reaction-meta">· Senior, Chemistry</span>
+        <p>Found a posting she wasn't fully qualified for — decided not to apply at all.</p>
+    </div>
+    <div class="lp-reaction-card">
+        <span class="lp-reaction-name">Arsh</span> <span class="lp-reaction-meta">· Junior, CS</span>
+        <p>Same situation — moved on and looked for a different listing instead.</p>
+    </div>
+    <div class="lp-reaction-card">
+        <span class="lp-reaction-name">Rima</span> <span class="lp-reaction-meta">· Sophomore, Data Analytics</span>
+        <p>Added the missing skills to her resume based on the job description, and started teaching herself.</p>
+    </div>
+    <p class="lp-lead" style="font-size: 0.92rem; margin-top: 18px;">
+        Asked to rate their confidence that their resume actually matched a posting, before hitting submit, on a scale of 1 to 5: they answered 1, 2, and 3. Nobody rated higher. None of them had tried an AI tool for any of this yet.
+    </p>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<hr class="section-divider" id="how-it-works">', unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="lp">
+        <div class="lp-eyebrow">How it works</div>
+        <h2 class="lp-h2">Four steps. No account needed.</h2>
+        <div class="lp-step">
+            <div class="lp-step-num">01</div>
+            <div><h3>Add your resume</h3><p>Upload a PDF, DOCX, or TXT — or just paste the text directly. No account, no file left behind.</p></div>
+        </div>
+        <div class="lp-step">
+            <div class="lp-step-num">02</div>
+            <div><h3>Paste the job posting</h3><p>Drop in the full listing. The tool reads the actual required skills, not just keywords.</p></div>
+        </div>
+        <div class="lp-step">
+            <div class="lp-step-num">03</div>
+            <div><h3>See your real match score</h3><p>What you have, what's missing, and honest suggestions for closing the gap — never a fabricated bullet point.</p></div>
+        </div>
+        <div class="lp-step">
+            <div class="lp-step-num">04</div>
+            <div><h3>Generate your cover letter</h3><p>A tailored, editable draft grounded in your actual resume — ready to download in seconds.</p></div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.write("")
+    st.markdown("""
+    <div class="lp-principle">
+        <div class="lp-eyebrow">Built on one rule</div>
+        <h2 class="lp-h2" style="margin-bottom:10px;">The tool never lies for you.</h2>
+        <p>When a skill is missing, Skill Gap Analyzer doesn't invent experience you don't have — it tells you what kind of project would actually close the gap. A tool that helps you get a job by fabricating your background isn't helping you. It's setting up the interview to fail.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.write("")
+    st.markdown("""
+    <div class="lp">
+        <h2 class="lp-h2">Ready to see your match score?</h2>
+        <p class="lp-lead" style="margin-top:0;">Free. No account. Built for students actually applying right now.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    _, cta_col2, _ = st.columns([1, 2, 1])
+    with cta_col2:
+        if st.button("Try Skill Gap Analyzer", key="cta_final", use_container_width=True):
+            st.session_state.show_landing = False
+            st.rerun()
+
+    st.markdown(
+        '<p style="text-align:center; margin-top:14px;"><a class="lp-ghost-link" style="display:inline; margin-top:0;" href="https://github.com/Anajinaaa/skill-gap-analyzer" target="_blank" rel="noopener noreferrer">View on GitHub</a></p>',
+        unsafe_allow_html=True,
+    )
+
+    st.stop()
 
 st.title("Skill Gap Analyzer")
 st.markdown('<div class="subtitle">Built for STEM students — see how your resume stacks up against a job posting, close the gaps that matter, and draft a cover letter that doesn\'t oversell it.</div>', unsafe_allow_html=True)
@@ -171,8 +376,14 @@ def extract_text_from_file(uploaded_file):
         return uploaded_file.read().decode("utf-8")
 
 st.markdown('<div class="section-label">Resume</div>', unsafe_allow_html=True)
-resume_file = st.file_uploader("Upload your resume", type=["pdf", "docx", "txt"], label_visibility="collapsed", help="Upload a PDF, DOCX, or TXT file, up to 10MB.")
-st.caption("PDF, DOCX, or TXT · up to 10MB")
+upload_tab, paste_tab = st.tabs(["Upload file", "Paste text"])
+with upload_tab:
+    resume_file = st.file_uploader("Upload your resume", type=["pdf", "docx", "txt"], label_visibility="collapsed", help="Upload a PDF, DOCX, or TXT file, up to 10MB.")
+    st.caption("PDF, DOCX, or TXT · up to 10MB")
+with paste_tab:
+    resume_pasted_text = st.text_area("Paste your resume", height=182, placeholder="Paste your resume text here...", label_visibility="collapsed")
+
+has_resume_input = bool(resume_file) or bool(resume_pasted_text and resume_pasted_text.strip())
 
 st.write("")
 st.markdown('<div class="section-label">Job posting</div>', unsafe_allow_html=True)
@@ -212,18 +423,24 @@ if not st.session_state.result:
     st.markdown('<div class="example-caption">Sample data — your results will use your own resume and job posting.</div>', unsafe_allow_html=True)
 
 if analyze:
-    if not resume_file or not job_posting.strip():
-        st.error("Add your resume and the job posting — both are needed to run the comparison. Upload a file above, then paste the posting text below it.")
+    if not has_resume_input or not job_posting.strip():
+        st.error("Add your resume (upload a file or paste the text) and the job posting — both are needed to run the comparison.")
     else:
         with st.spinner("Reading resume..."):
-            try:
-                resume_text = extract_text_from_file(resume_file)
-            except Exception:
-                resume_text = ""
+            if resume_file:
+                try:
+                    resume_text = extract_text_from_file(resume_file)
+                except Exception:
+                    resume_text = ""
+            else:
+                resume_text = resume_pasted_text
             st.session_state.resume_text = resume_text
 
         if len(resume_text.strip()) < 40:
-            st.error("We couldn't read enough text from that file — it might be corrupted, password-protected, or a scanned/image-based PDF. Try a DOCX or TXT file instead, or paste your resume text directly.")
+            if resume_file:
+                st.error("We couldn't read enough text from that file — it might be corrupted, password-protected, or a scanned/image-based PDF. Try a DOCX or TXT file instead, or paste your resume text directly.")
+            else:
+                st.error("That doesn't look like enough resume text to compare against a job posting — paste more and try again.")
         else:
             with st.spinner("Comparing..."):
                 client = genai.Client()
